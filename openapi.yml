@@ -1,0 +1,252 @@
+openapi: 3.0.3
+info:
+  title: ReviewRally API
+  version: 1.0.0
+  description: >
+    B2B SaaS API for ReviewRally - Reputation Management & AI Response Assistant.
+    Provides customer review aggregation, sentiment categorization (Food, Service, Ambiance),
+    analytics metrics, and automated AI response drafting.
+servers:
+  - url: http://localhost:3001
+    description: Local Development Server (Hono)
+
+paths:
+  /api/health:
+    get:
+      summary: Health check endpoint
+      description: Returns health status of the Hono backend server.
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  service:
+                    type: string
+                    example: reviewrally-api
+
+  /api/reviews:
+    get:
+      summary: Get customer reviews
+      description: Retrieve a list of customer reviews, optionally filtered by sentiment, category, or businessId.
+      parameters:
+        - name: businessId
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "biz-1"
+          description: Tenant ID of the business
+        - name: sentiment
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [POSITIVE, NEUTRAL, NEGATIVE]
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [FOOD, SERVICE, AMBIANCE]
+      responses:
+        '200':
+          description: Successfully retrieved reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+
+  /api/analytics/sentiment:
+    get:
+      summary: Get sentiment and category analytics
+      description: Retrieve aggregated metrics including total reviews, average star rating, negative review count, category distribution, and 14-day daily trends.
+      parameters:
+        - name: businessId
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "biz-1"
+      responses:
+        '200':
+          description: Aggregated sentiment and category statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SentimentData'
+
+  /api/reviews/{id}/suggest-response:
+    post:
+      summary: Generate AI response suggestion
+      description: Generates a professional, empathetic resolution response tailored to the review's star rating, sentiment, and category.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the review to respond to
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Suggested AI response generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuggestion'
+        '404':
+          description: Review not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Review:
+      type: object
+      required:
+        - id
+        - author
+        - rating
+        - sentiment
+        - category
+        - businessId
+        - createdAt
+      properties:
+        id:
+          type: string
+          example: "rev-001"
+        author:
+          type: string
+          example: "Elena Rostova"
+        text:
+          type: string
+          nullable: true
+          example: "The truffle pasta was lukewarm and took 45 minutes to arrive."
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 2
+        sentiment:
+          type: string
+          enum: [POSITIVE, NEUTRAL, NEGATIVE]
+          example: "NEGATIVE"
+        category:
+          type: string
+          enum: [FOOD, SERVICE, AMBIANCE]
+          example: "FOOD"
+        businessId:
+          type: string
+          example: "biz-1"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2026-10-18T14:32:00.000Z"
+
+    SentimentData:
+      type: object
+      required:
+        - totalReviews
+        - averageRating
+        - negativeCount
+        - responseRate
+        - sentimentCounts
+        - categoryCounts
+        - dailyTrends
+      properties:
+        totalReviews:
+          type: integer
+          example: 450
+        averageRating:
+          type: number
+          format: float
+          example: 4.2
+        negativeCount:
+          type: integer
+          example: 42
+        responseRate:
+          type: number
+          example: 92
+        sentimentCounts:
+          type: object
+          properties:
+            positive:
+              type: integer
+              example: 320
+            neutral:
+              type: integer
+              example: 88
+            negative:
+              type: integer
+              example: 42
+        categoryCounts:
+          type: object
+          properties:
+            food:
+              type: integer
+              example: 210
+            service:
+              type: integer
+              example: 155
+            ambiance:
+              type: integer
+              example: 85
+        dailyTrends:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                example: "Oct 15"
+              positive:
+                type: integer
+                example: 18
+              neutral:
+                type: integer
+                example: 5
+              negative:
+                type: integer
+                example: 2
+              total:
+                type: integer
+                example: 25
+
+    ResponseSuggestion:
+      type: object
+      required:
+        - reviewId
+        - suggestion
+        - category
+        - suggestedAction
+      properties:
+        reviewId:
+          type: string
+          example: "rev-001"
+        suggestion:
+          type: string
+          example: "Dear Elena, thank you for bringing this to our attention..."
+        category:
+          type: string
+          example: "FOOD"
+        suggestedAction:
+          type: string
+          example: "Copy to clipboard and paste to Google Business"
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "Review not found"
