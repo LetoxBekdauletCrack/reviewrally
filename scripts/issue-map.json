@@ -1,0 +1,182 @@
+{
+  "1": {
+    "backlogId": "1",
+    "realNumber": 1,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/1",
+    "title": "[mvp] Setup Next.js, Tailwind, and shadcn/ui project structure",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "2": {
+    "backlogId": "2",
+    "realNumber": 2,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/2",
+    "title": "[mvp] Generate and implement v0.dev style Dashboard layout",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "3": {
+    "backlogId": "3",
+    "realNumber": 3,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/3",
+    "title": "[mvp] Build Reviews List UI component",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "4": {
+    "backlogId": "4",
+    "realNumber": 4,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/4",
+    "title": "[mvp] Implement mock-service.ts for frontend",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "5": {
+    "backlogId": "5",
+    "realNumber": 5,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/5",
+    "title": "[mvp] Wire Dashboard charts to mock data",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "6": {
+    "backlogId": "6",
+    "realNumber": 6,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/6",
+    "title": "[mvp] Define OpenAPI contract (openapi.yml)",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "7": {
+    "backlogId": "7",
+    "realNumber": 7,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/7",
+    "title": "[mvp] Initialize Hono backend server",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "8": {
+    "backlogId": "8",
+    "realNumber": 8,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/8",
+    "title": "[mvp] Implement In-Memory storage controllers",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "9": {
+    "backlogId": "9",
+    "realNumber": 9,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/9",
+    "title": "[mvp] Setup Prisma schema with SQLite provider",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "10": {
+    "backlogId": "10",
+    "realNumber": 10,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/10",
+    "title": "[mvp] Run Prisma migrations for SQLite DB",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "11": {
+    "backlogId": "11",
+    "realNumber": 11,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/11",
+    "title": "[mvp] Create DB seed script for 500 test reviews",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "12": {
+    "backlogId": "12",
+    "realNumber": 12,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/12",
+    "title": "[mvp] Connect Frontend to Hono Backend API",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "13": {
+    "backlogId": "13",
+    "realNumber": 13,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/13",
+    "title": "[mvp] Implement \"Suggest AI Response\" API endpoint",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "14": {
+    "backlogId": "14",
+    "realNumber": 14,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/14",
+    "title": "[mvp] Add loading states and error handling to frontend",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "15": {
+    "backlogId": "15",
+    "realNumber": 15,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/15",
+    "title": "[mvp] Write Hono Integration Tests",
+    "labels": [
+      "mvp"
+    ]
+  },
+  "16": {
+    "backlogId": "16",
+    "realNumber": 16,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/16",
+    "title": "[user-test-bug] [Bug] Dashboard crashes with TypeError when a review has empty/null text body",
+    "labels": [
+      "user-test-bug"
+    ]
+  },
+  "17": {
+    "backlogId": "17",
+    "realNumber": 17,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/17",
+    "title": "[user-test-bug] [Bug] Sentiment pie chart shows \"NaN%\" when database has 0 reviews",
+    "labels": [
+      "user-test-bug"
+    ]
+  },
+  "18": {
+    "backlogId": "18",
+    "realNumber": 18,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/18",
+    "title": "[post-mvp] Setup CI pipeline (GitHub Actions)",
+    "labels": [
+      "post-mvp"
+    ]
+  },
+  "19": {
+    "backlogId": "19",
+    "realNumber": 19,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/19",
+    "title": "[post-mvp] Integrate Stripe subscriptions (test-mode slice)",
+    "labels": [
+      "post-mvp"
+    ]
+  },
+  "20": {
+    "backlogId": "20",
+    "realNumber": 20,
+    "url": "https://github.com/LetoxBekdauletCrack/reviewrally/issues/20",
+    "title": "[post-mvp] Add multi-tenant authentication (NextAuth credentials slice)",
+    "labels": [
+      "post-mvp"
+    ]
+  }
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "title": "[mvp] Setup Next.js, Tailwind, and shadcn/ui project structure",
+    "labels": ["mvp"],
+    "body": "### Goal\nEstablish the modern frontend foundation for ReviewRally with Next.js App Router, TypeScript, Tailwind CSS, and shadcn/ui primitives.\n\n### Tasks\n- Initialize Next.js project with App Router and TypeScript\n- Configure Tailwind CSS with dark-mode tokens and v0.dev design aesthetic\n- Set up base UI primitives (Button, Card, Table, Badge, Dialog, Skeleton, Tabs)\n- Verify layout and font rendering\n\n### Acceptance Criteria\n- `npm run dev` starts cleanly without warnings\n- Base layout renders responsive dark-mode theme"
+  },
+  {
+    "id": "2",
+    "title": "[mvp] Generate and implement v0.dev style Dashboard layout",
+    "labels": ["mvp"],
+    "body": "### Goal\nDeliver a non-generic, high-converting B2B SaaS dashboard shell inspired by v0.dev / Lovable aesthetic.\n\n### Tasks\n- Build collapsible sidebar navigation (Overview, Reviews, Analytics, Billing, Settings)\n- Build topbar with business switcher, notifications icon, and user profile\n- Implement stat cards: Total Reviews, Average Rating, Negative Count, Response Rate\n- Ensure full responsiveness across desktop and mobile screens\n\n### Acceptance Criteria\n- Matches v0.dev-quality dark-mode SaaS UI\n- Fully responsive layout with mobile drawer and desktop sidebar"
+  },
+  {
+    "id": "3",
+    "title": "[mvp] Build Reviews List UI component",
+    "labels": ["mvp"],
+    "body": "### Goal\nCreate a polished, interactive Reviews List component displaying incoming customer feedback.\n\n### Tasks\n- Implement review table with columns: Author, Rating (star display), Category/Sentiment Badge, Date, Excerpt, Action\n- Style sentiment badges with semantic colors (Positive: emerald, Neutral: slate/gray, Negative: rose/red)\n- Add Category indicators (Food, Service, Ambiance)\n- Design empty state illustration and placeholder\n\n### Acceptance Criteria\n- Renders cleanly from typed review props\n- Empty state renders gracefully when no reviews are present"
+  },
+  {
+    "id": "4",
+    "title": "[mvp] Implement mock-service.ts for frontend",
+    "labels": ["mvp"],
+    "body": "### Goal\nProvide an asynchronous frontend mock service matching future API contracts for independent UI development.\n\n### Tasks\n- Create `mock-service.ts` exporting TypeScript types (`Review`, `SentimentData`, `ResponseSuggestion`)\n- Implement `getReviews()` with edge cases (`text: null`, `text: \"\"`)\n- Implement `getSentiment()` with category breakdowns (Food, Service, Ambiance)\n- Add realistic artificial latency (~300ms)\n\n### Acceptance Criteria\n- Frontend functions seamlessly in standalone mock mode with zero backend running\n- Handles edge cases cleanly"
+  },
+  {
+    "id": "5",
+    "title": "[mvp] Wire Dashboard charts to mock data",
+    "labels": ["mvp"],
+    "body": "### Goal\nProvide rich visual analytics using Recharts for sentiment distribution and review volume trends.\n\n### Tasks\n- Implement Pie/Donut Chart showing sentiment distribution (Positive, Neutral, Negative)\n- Implement Area/Line Chart showing 14-day review volume trends\n- Configure custom dark-mode tooltips, smooth animations, and legends\n\n### Acceptance Criteria\n- Charts render interactive tooltips, legends, and responsive containers\n- Data updates seamlessly when filters or mock data change"
+  },
+  {
+    "id": "6",
+    "title": "[mvp] Define OpenAPI contract (openapi.yml)",
+    "labels": ["mvp"],
+    "body": "### Goal\nDefine a formal OpenAPI 3.0 contract at repository root as the single source of truth between frontend and backend.\n\n### Tasks\n- Define `GET /api/reviews` with pagination and category filters\n- Define `GET /api/analytics/sentiment` with category counts and trend breakdown\n- Define `POST /api/reviews/{id}/suggest-response`\n- Define schemas: `Review` (text nullable), `SentimentData`, `ResponseSuggestion`, `ErrorResponse`\n\n### Acceptance Criteria\n- `openapi.yml` passes OpenAPI / Swagger 3.0 validation with zero errors\n- Single source of truth for contract-first development"
+  },
+  {
+    "id": "7",
+    "title": "[mvp] Initialize Hono backend server",
+    "labels": ["mvp"],
+    "body": "### Goal\nSet up a high-performance, lightweight Hono backend in `/backend` to serve REST endpoints.\n\n### Tasks\n- Initialize Hono app on Node.js adapter\n- Configure CORS middleware for Next.js frontend origin\n- Implement `GET /health` healthcheck endpoint\n- Add dev script with hot-reload\n\n### Acceptance Criteria\n- `GET /health` returns HTTP 200 `{ status: \"ok\", service: \"reviewrally-api\" }`\n- CORS preflight handles requests from frontend seamlessly"
+  },
+  {
+    "id": "8",
+    "title": "[mvp] Implement In-Memory storage controllers",
+    "labels": ["mvp"],
+    "body": "### Goal\nImplement all endpoints in Hono using in-memory `Map()` storage before introducing database persistence.\n\n### Tasks\n- Seed in-memory map with initial test reviews including edge cases\n- Implement review listing and filtering controllers\n- Implement sentiment analytics aggregation controller\n- Implement rule-based AI response suggestion controller\n\n### Acceptance Criteria\n- All endpoints match `openapi.yml` specification\n- Zero database dependency required for in-memory iteration"
+  },
+  {
+    "id": "9",
+    "title": "[mvp] Setup Prisma schema with SQLite provider",
+    "labels": ["mvp"],
+    "body": "### Goal\nConfigure Prisma ORM with SQLite provider for robust, zero-configuration local persistence.\n\n### Tasks\n- Initialize `prisma/schema.prisma` with `provider = \"sqlite\"`\n- Create `Review` model (`id` cuid, `author`, `text` nullable, `rating`, `sentiment`, `category`, `createdAt`, `businessId`)\n- Configure `.env` with `DATABASE_URL=\"file:./dev.db\"`\n\n### Acceptance Criteria\n- `npx prisma validate` passes with zero errors\n- Schema matches OpenAPI data contract"
+  },
+  {
+    "id": "10",
+    "title": "[mvp] Run Prisma migrations for SQLite DB",
+    "labels": ["mvp"],
+    "body": "### Goal\nApply initial database migrations to create SQLite schema and generate Prisma Client.\n\n### Tasks\n- Execute `prisma migrate dev --name init`\n- Verify creation of `dev.db`\n- Verify generated `@prisma/client` types and export singleton client instance\n\n### Acceptance Criteria\n- Migration files committed to git\n- Prisma client generated cleanly without type errors"
+  },
+  {
+    "id": "11",
+    "title": "[mvp] Create DB seed script for 500 test reviews",
+    "labels": ["mvp"],
+    "body": "### Goal\nPopulate SQLite database with a realistic dataset of 500 reviews spanning 14 days.\n\n### Tasks\n- Write `prisma/seed.ts` generating 500 realistic reviews across Food, Service, and Ambiance\n- Include realistic star ratings, authors, and dates\n- Specifically include edge case records: `text: null` and `text: \"\"`\n- Register `prisma.seed` command in `package.json`\n\n### Acceptance Criteria\n- Running `npx prisma db seed` populates exactly 500 reviews\n- Database contains verified edge case rows"
+  },
+  {
+    "id": "12",
+    "title": "[mvp] Connect Frontend to Hono Backend API",
+    "labels": ["mvp"],
+    "body": "### Goal\nSwap frontend mock imports with a typed HTTP client calling the Hono backend API.\n\n### Tasks\n- Build typed API client (`lib/api.ts`) honoring `openapi.yml`\n- Update Dashboard and Reviews components to fetch from backend\n- Remove all mock imports from production app code\n\n### Acceptance Criteria\n- UI displays live data queried from SQLite via Hono backend\n- Zero mock imports remaining in application code"
+  },
+  {
+    "id": "13",
+    "title": "[mvp] Implement \"Suggest AI Response\" API endpoint",
+    "labels": ["mvp"],
+    "body": "### Goal\nDeliver the core AI value proposition: automated, empathetic response suggestions for negative customer reviews.\n\n### Tasks\n- Implement `POST /api/reviews/:id/suggest-response` in Hono\n- Generate empathetic, professional resolution drafts conditioned on rating, sentiment, and category (Food, Service, Ambiance)\n- Return HTTP 404 for nonexistent review IDs\n- Wire UI modal/action button to trigger response suggestion and copy to clipboard\n\n### Acceptance Criteria\n- Returns 200 `{ suggestion: string }` with context-specific professional responses\n- Returns 404 with JSON error on invalid ID"
+  },
+  {
+    "id": "14",
+    "title": "[mvp] Add loading states and error handling to frontend",
+    "labels": ["mvp"],
+    "body": "### Goal\nDeliver production-grade resilient UX with skeleton loaders, error boundaries, and toast notifications.\n\n### Tasks\n- Add animated skeleton loaders for stat cards, review table rows, and charts\n- Implement Error Boundary component with retry mechanism\n- Add toast notifications for API success and failure states\n\n### Acceptance Criteria\n- Skeletons display smoothly under throttled network conditions\n- Friendly error recovery UI displays on simulated 500 error"
+  },
+  {
+    "id": "15",
+    "title": "[mvp] Write Hono Integration Tests",
+    "labels": ["mvp"],
+    "body": "### Goal\nCreate automated integration tests using Vitest to verify all backend API contracts and edge cases.\n\n### Tasks\n- Configure Vitest test runner with isolated test database harness\n- Test `GET /api/reviews` (pagination, filtering, null-text handling)\n- Test `GET /api/analytics/sentiment` (empty database, aggregation math)\n- Test `POST /api/reviews/:id/suggest-response` (200 success, 404 not found)\n\n### Acceptance Criteria\n- `npm test` runs green with 100% passing test suites\n- Explicitly covers empty-DB and null-text edge cases"
+  },
+  {
+    "id": "16",
+    "title": "[user-test-bug] [Bug] Dashboard crashes with TypeError when a review has empty/null text body",
+    "labels": ["user-test-bug"],
+    "body": "### Goal\nPrevent dashboard crash on reviews containing null or empty text bodies.\n\n### Description\nWhen a seeded review with `text: null` is rendered in ReviewCard/ReviewRow, calling `review.text.substring(...)` throws `TypeError: Cannot read properties of null (reading 'substring')`, causing a white-screen crash.\n\n### Repro Steps\n1. Seed database with null-text review (`text: null`)\n2. Open Dashboard / Reviews page\n3. Frontend crashes with unhandled TypeError\n\n### Requests\n- @pm.md please groom this issue, assign priority, and define fallback UI copy.\n- @qa-engineer.md please add regression test cases for null and empty text bodies.\n\n### Acceptance Criteria\n- Reviews with `null` or empty text render graceful fallback \"No text provided\"\n- Zero console errors or crashes"
+  },
+  {
+    "id": "17",
+    "title": "[user-test-bug] [Bug] Sentiment pie chart shows \"NaN%\" when database has 0 reviews",
+    "labels": ["user-test-bug"],
+    "body": "### Goal\nGracefully handle empty analytics when database has zero reviews without showing NaN.\n\n### Description\nOn a fresh unseeded database where total reviews count is 0, percentage calculation divides by zero, resulting in \"NaN%\" rendered in chart labels and stats.\n\n### Repro Steps\n1. Launch app with fresh empty database (0 reviews)\n2. Navigate to Dashboard Analytics\n3. Observe sentiment chart and percentages displaying \"NaN%\"\n\n### Requests\n- @pm.md please groom empty-state design requirements.\n- @qa-engineer.md please add zero-data analytics test cases.\n\n### Acceptance Criteria\n- Displays empty state overlay \"Waiting for your first reviews…\" when total reviews is 0\n- Zero NaN values rendered on dashboard"
+  },
+  {
+    "id": "18",
+    "title": "[post-mvp] Setup CI pipeline (GitHub Actions)",
+    "labels": ["post-mvp"],
+    "body": "### Goal\nAutomate verification of code quality, Prisma migrations, and test suites on every pull request and push to main.\n\n### Tasks\n- Create `.github/workflows/ci.yml`\n- Configure steps: checkout, node setup, dependency installation, `npx prisma validate`, `npm test`\n- Verify CI passes cleanly\n\n### Acceptance Criteria\n- Workflow runs green on push/PR\n- Intentionally broken test causes failure, restored code passes"
+  },
+  {
+    "id": "19",
+    "title": "[post-mvp] Integrate Stripe subscriptions (test-mode slice)",
+    "labels": ["post-mvp"],
+    "body": "### Goal\nImplement subscription billing monetization slice with mock-fallback when Stripe API keys are not provided.\n\n### Tasks\n- Define subscription tiers: Starter ($29/mo), Pro ($79/mo), Agency ($199/mo)\n- Implement `POST /api/billing/checkout` returning mock session when keys missing or real Stripe session\n- Add webhook handler updating user subscription status\n- Create Billing management page with tier comparison and upgrade flow\n\n### Acceptance Criteria\n- End-to-end checkout flow succeeds in test/mock mode\n- Billing page accurately reflects current tier and subscription status"
+  },
+  {
+    "id": "20",
+    "title": "[post-mvp] Add multi-tenant authentication (NextAuth credentials slice)",
+    "labels": ["post-mvp"],
+    "body": "### Goal\nProvide secure multi-tenant isolation so businesses only view and manage their own customer reviews.\n\n### Tasks\n- Configure NextAuth credentials provider with bcrypt password hashing\n- Add `User` and `Business` models to SQLite schema with `businessId` relationship\n- Implement row-level tenant filtering on all review queries\n- Build login and registration pages matching v0.dev dark-mode styling\n\n### Acceptance Criteria\n- Two distinct seeded businesses only access their own respective reviews\n- Unauthenticated API calls return HTTP 401 Unauthorized"
+  }
+]
